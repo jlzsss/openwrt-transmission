@@ -43,10 +43,8 @@ define Package/transmission/template
   TITLE:=BitTorrent client
   URL:=https://www.transmissionbt.com
   DEPENDS:=+libatomic +libcurl +libevent2 \
-	   +libevent2-pthreads +libminiupnpc +libnatpmp +libpthread \
-	   +librt +zlib +libstdcpp +LIBCURL_NOSSL:libmbedtls \
-	   +LIBCURL_GNUTLS:libmbedtls +LIBCURL_MBEDTLS:libmbedtls \
-	   +LIBCURL_OPENSSL:libopenssl +LIBCURL_WOLFSSL:libwolfssl
+	   +libevent2-pthreads +libmbedtls +libminiupnpc +libnatpmp +libpthread \
+	   +librt +zlib +libstdcpp
 endef
 
 define Package/transmission-daemon
@@ -123,8 +121,8 @@ CMAKE_OPTIONS += \
 	$(if $(CONFIG_LIBCURL_NOSSL),-DWITH_CRYPTO=mbedtls) \
 	$(if $(CONFIG_LIBCURL_GNUTLS),-DWITH_CRYPTO=mbedtls) \
 	$(if $(CONFIG_LIBCURL_MBEDTLS),-DWITH_CRYPTO=mbedtls) \
-	$(if $(CONFIG_LIBCURL_OPENSSL),-DWITH_CRYPTO=openssl) \
-	$(if $(CONFIG_LIBCURL_WOLFSSL),-DWITH_CRYPTO=wolfssl)
+	$(if $(CONFIG_LIBCURL_OPENSSL),-DWITH_CRYPTO=mbedtls) \
+	$(if $(CONFIG_LIBCURL_WOLFSSL),-DWITH_CRYPTO=mbedtls)
 
 define Package/transmission-daemon/install
 	$(INSTALL_DIR) $(1)/usr/bin
